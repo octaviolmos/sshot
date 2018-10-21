@@ -31,11 +31,11 @@ def screenshot(url,c_name,extrasleep=False):
     time.sleep(3)
     #save screenshot
     print(driver.get_window_size())
-    driver.save_screenshot('output/sshot_{}.png'.format(c_name))
+    driver.save_screenshot('sshot_{}.png'.format(c_name))
     driver.close()
     print('done')
 
 
-url = 'http://www.yahoo.com'    
-screenshot(url,c_name='yahoo')
+url = 'http://www.medium.com'    
+screenshot(url,c_name='medium')
 
