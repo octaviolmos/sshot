@@ -4,18 +4,22 @@ def screenshot(url,c_name,extrasleep=False):
     from PIL import Image
     from selenium.webdriver.chrome.options import Options
     import time
+    from pathlib import Path
 
     #run first time to get scrollHeight
     driver = webdriver.Chrome()
     driver.get(url)
+
     #pause 3 second to let page load
     time.sleep(3)
+    
     #get scroll Height
     height = driver.execute_script("return Math.max( document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight )")
-    #     print(height)
+   
+   # if internet connection is too slow, then add more seconds
     if extrasleep:
         time.sleep(extrasleep)
-    #     print(f'height: {height}')
+
     #close browser
     driver.close()
 
@@ -29,13 +33,23 @@ def screenshot(url,c_name,extrasleep=False):
     driver.get(url)
     #pause 3 second to let page loads
     time.sleep(3)
-    #save screenshot
+
+    #print window size
     print(driver.get_window_size())
-    driver.save_screenshot('sshot_{}.png'.format(c_name))
+
+    # save to output folder using relative path. "python/output" should exist
+    data_folder =  Path(Path.cwd(),"python/output")
+    filename = 'sshot_{}.png'.format(c_name)
+    savepath = '{}\{}'.format(data_folder,filename)
+    driver.save_screenshot(savepath)
+    
+    # close web browser
     driver.close()
+
+    # print confirmation
     print('done')
 
 
 url = 'http://www.medium.com'    
-screenshot(url,c_name='medium')
+screenshot(url,c_name='medium2')
 
